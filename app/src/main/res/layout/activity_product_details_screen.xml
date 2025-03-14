@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#427262"
+    android:orientation="vertical"
+    tools:context=".Product_Details_Screen">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+            <Button
+                android:id="@+id/buttonbacktohome"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:backgroundTint="#AAF2DA"
+                android:shadowColor="#242F20"
+                android:text="Back"
+                android:textColor="#242F20"
+                android:textColorHighlight="#242F20"
+                android:textColorHint="#242F20"
+                android:textColorLink="#242F20"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:rippleColor="#A4CC8D"
+                app:strokeColor="#A4CC8D" />
+
+            <TextView
+                android:id="@+id/prodRatingPlace"
+                android:layout_width="205dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="Product Rating"
+                android:textAlignment="textEnd"
+                android:textColor="#A4CC8D"
+                android:textColorHint="#AAF2DA"
+                android:textSize="25sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/imgPlace"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:padding="5dp"
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/cleanser" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="5dp">
+
+            <TextView
+                android:id="@+id/namePlace"
+                android:layout_width="185dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity=""
+                android:hint="Product Name"
+                android:textColor="#AAF2DA"
+                android:textColorHint="#AAF2DA"
+                android:textSize="25sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/prodPricePlace"
+                android:layout_width="205dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="Product Price"
+                android:textAlignment="textEnd"
+                android:textColor="#A4CC8D"
+                android:textColorHint="#AAF2DA"
+                android:textSize="25sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/desc"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:hint="Product Description"
+            android:padding="5dp"
+            android:textColor="#AAF2DA"
+            android:textColorHint="#AAF2DA"
+            android:textSize="18sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="5dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:gravity=""
+                android:hint="Product Quantity: "
+                android:textColorHint="#AAF2DA"
+                android:textSize="25sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/buttonadd"
+                android:layout_width="38dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:backgroundTint="#AAF2DA"
+                android:padding="10dp"
+                android:shadowColor="#242F20"
+                android:text="+"
+                android:textColor="#242F20"
+                android:textColorHighlight="#242F20"
+                android:textColorHint="#242F20"
+                android:textColorLink="#242F20"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:rippleColor="#A4CC8D"
+                app:strokeColor="#A4CC8D" />
+
+            <TextView
+                android:id="@+id/qtyNum"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:hint="1"
+                android:textColor="#A4CC8D"
+                android:textColorHint="#A4CC8D"
+                android:textSize="25sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/buttonminus"
+                android:layout_width="38dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:backgroundTint="#AAF2DA"
+                android:padding="10dp"
+                android:shadowColor="#242F20"
+                android:text="-"
+                android:textColor="#242F20"
+                android:textColorHighlight="#242F20"
+                android:textColorHint="#242F20"
+                android:textColorLink="#242F20"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:rippleColor="#A4CC8D"
+                app:strokeColor="#A4CC8D" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="5dp">
+
+            <Button
+                android:id="@+id/buttonaddtocart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:backgroundTint="#AAF2DA"
+                android:shadowColor="#242F20"
+                android:text="Add to Cart"
+                android:textColor="#242F20"
+                android:textColorHighlight="#242F20"
+                android:textColorHint="#242F20"
+                android:textColorLink="#242F20"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:rippleColor="#A4CC8D"
+                app:strokeColor="#A4CC8D" />
+
+            <Button
+                android:id="@+id/buttoncheckout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:backgroundTint="#AAF2DA"
+                android:shadowColor="#242F20"
+                android:text="Check Out"
+                android:textColor="#242F20"
+                android:textColorHighlight="#242F20"
+                android:textColorHint="#242F20"
+                android:textColorLink="#242F20"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:rippleColor="#A4CC8D"
+                app:strokeColor="#A4CC8D" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>
