@@ -44,7 +44,7 @@
                 android:layout_width="205dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:hint="Product Rating"
+                android:hint="Rating"
                 android:textAlignment="textEnd"
                 android:textColor="#A4CC8D"
                 android:textColorHint="#AAF2DA"

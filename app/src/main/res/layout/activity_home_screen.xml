@@ -16,11 +16,17 @@
         android:textSize="18sp"
         android:textStyle="bold" />
 
-    <ListView
+<!--    <ListView-->
+<!--        android:id="@+id/featuredProductsList"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="190dp"-->
+<!--        android:layout_weight="1"/>-->
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/featuredProductsList"
         android:layout_width="match_parent"
-        android:layout_height="190dp"
-        android:layout_weight="1"/>
+        android:layout_height="wrap_content"
+        android:nestedScrollingEnabled="true"/>
+
 
     <!-- Popular Products Section -->
     <TextView
@@ -32,11 +38,16 @@
         android:textSize="18sp"
         android:textStyle="bold" />
 
-    <ListView
+<!--    <ListView-->
+<!--        android:id="@+id/popularProductsList"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="190dp"-->
+<!--        android:layout_weight="1"/>-->
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/popularProductsList"
         android:layout_width="match_parent"
-        android:layout_height="190dp"
-        android:layout_weight="1"/>
+        android:layout_height="wrap_content"
+        android:nestedScrollingEnabled="true"/>
 
     <!-- Categories Section -->
     <LinearLayout

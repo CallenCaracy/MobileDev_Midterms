@@ -2,18 +2,22 @@ package usc.edu.midtermexampractical;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.widget.Button;
-import android.widget.ListView;
 import android.content.Intent;
+import java.io.IOException;
+import android.widget.Button;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
-
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
+import org.json.JSONArray;
+import java.io.InputStream;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class Home_Screen extends AppCompatActivity {
-    private ListView featuredListView, popularListView;
+    private RecyclerView featuredRecyclerView, popularRecyclerView;
     private ProductAdapter featuredAdapter, popularAdapter;
     private List<Product> featuredProducts, popularProducts;
     private Button normalSkin, drySkin, oilySkin, combinationSkin, rankedCategory, hotCategory, lovedCategory, secretCategory;
@@ -24,8 +28,11 @@ public class Home_Screen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
 
-        featuredListView = findViewById(R.id.featuredProductsList);
-        popularListView = findViewById(R.id.popularProductsList);
+        // Initialize RecyclerViews
+        featuredRecyclerView = findViewById(R.id.featuredProductsList);
+        popularRecyclerView = findViewById(R.id.popularProductsList);
+
+        // Initialize filter buttons
         normalSkin = findViewById(R.id.normalSkin);
         drySkin = findViewById(R.id.drySkin);
         oilySkin = findViewById(R.id.oilySkin);
@@ -35,50 +42,40 @@ public class Home_Screen extends AppCompatActivity {
         lovedCategory = findViewById(R.id.lovedCategory);
         secretCategory = findViewById(R.id.secretCategory);
 
+        // Initialize product lists
         featuredProducts = new ArrayList<>();
         popularProducts = new ArrayList<>();
 
-        featuredProducts.add(new Product("Moisturizer", 180, "This moisturizes your skin", 4.5, R.drawable.moisturizer, "Dry", "Hot"));
-        featuredProducts.add(new Product("Cleanser", 349, "Cleanses your delicate skin", 4.2, R.drawable.cleanser, "Oily", "Ranked"));
-        featuredProducts.add(new Product("Face Cream", 220, "Light cream for your skin", 4.0, R.drawable.face_cream, "Normal", "Loved"));
-        featuredProducts.add(new Product("Hydrating Gel", 280, "Hydrates and balances your skin", 4.6, R.drawable.hydrating_gel, "Combination", "Secret"));
+        // Populate featured products
+        loadProductsFromJSON();
 
-        popularProducts.add(new Product("Foundation", 139, "This foundation is for you and your skin", 4.8, R.drawable.foundation, "Dry", "Ranked"));
-        popularProducts.add(new Product("Lipstick", 200, "Your lips deserves more", 4.6, R.drawable.lipstick, "Normal", "Loved"));
-        popularProducts.add(new Product("Toner", 350, "Gentle toner for soft skin", 4.3, R.drawable.toner, "Oily", "Hot"));
-        popularProducts.add(new Product("Serum", 400, "Deep hydrating serum", 4.7, R.drawable.serum, "Combination", "Secret"));
+        // Set LayoutManagers for horizontal scrolling (or change to vertical if desired)
+        featuredRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        popularRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
-        featuredAdapter = new ProductAdapter(this, featuredProducts);
-        popularAdapter = new ProductAdapter(this, popularProducts);
+        // Create adapters with a click listener for product details
+        featuredAdapter = new ProductAdapter(this, featuredProducts, product -> openProductDetails(product));
+        popularAdapter = new ProductAdapter(this, popularProducts, product -> openProductDetails(product));
 
-        featuredListView.setAdapter(featuredAdapter);
-        popularListView.setAdapter(popularAdapter);
+        // Set adapters
+        featuredRecyclerView.setAdapter(featuredAdapter);
+        popularRecyclerView.setAdapter(popularAdapter);
 
+        // Filter button listeners
         normalSkin.setOnClickListener(view -> filterBySkinType("Normal"));
         drySkin.setOnClickListener(view -> filterBySkinType("Dry"));
         oilySkin.setOnClickListener(view -> filterBySkinType("Oily"));
         combinationSkin.setOnClickListener(view -> filterBySkinType("Combination"));
-
         rankedCategory.setOnClickListener(view -> filterByCategory("Ranked"));
         hotCategory.setOnClickListener(view -> filterByCategory("Hot"));
         lovedCategory.setOnClickListener(view -> filterByCategory("Loved"));
         secretCategory.setOnClickListener(view -> filterByCategory("Secret"));
+    }
 
-        featuredListView.setOnItemClickListener((parent, view, position, id) -> {
-            Product selectedProduct = featuredProducts.get(position);
-            Intent intent = new Intent(Home_Screen.this, Product_Details_Screen.class);
-            intent.putExtra("product", selectedProduct);
-            startActivity(intent);
-        });
-
-        popularListView.setOnItemClickListener((parent, view, position, id) -> {
-            Product selectedProduct = popularProducts.get(position);
-            Intent intent = new Intent(Home_Screen.this, Product_Details_Screen.class);
-            intent.putExtra("product", selectedProduct);
-            startActivity(intent);
-        });
-
-
+    private void openProductDetails(Product product) {
+        Intent intent = new Intent(Home_Screen.this, Product_Details_Screen.class);
+        intent.putExtra("product", product);
+        startActivity(intent);
     }
 
     private void filterBySkinType(String skinType) {
@@ -124,4 +121,62 @@ public class Home_Screen extends AppCompatActivity {
 
         Toast.makeText(Home_Screen.this, "Filtered by Category: " + category, Toast.LENGTH_SHORT).show();
     }
+
+    private String loadJSONFromAsset(String filename) {
+        String json;
+        try {
+            InputStream is = getAssets().open(filename);
+            int size = is.available();
+            byte[] buffer = new byte[size];
+            is.read(buffer);
+            is.close();
+            json = new String(buffer, "UTF-8");
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+        return json;
+    }
+
+    private void loadProductsFromJSON() {
+        String json = loadJSONFromAsset("products.json");
+        if (json == null) {
+            Toast.makeText(this, "Failed to load JSON data", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        try {
+            JSONObject jsonObject = new JSONObject(json);
+            JSONArray productsArray = jsonObject.getJSONArray("Products");
+
+            for (int i = 0; i < productsArray.length(); i++) {
+                JSONObject productObj = productsArray.getJSONObject(i);
+
+                String name = productObj.getString("name");
+                double price = productObj.getDouble("price");
+                String description = productObj.getString("description");
+                double rating = productObj.getDouble("rating");
+                String skinType = productObj.getString("skinType");
+                String category = productObj.getString("category");
+
+                int imageResId = getResources().getIdentifier(
+                        productObj.getString("image").replace("R.drawable.", ""),
+                        "drawable", getPackageName()
+                );
+
+                Product product = new Product(name, price, description, rating, imageResId, skinType, category);
+
+                // Add to correct list
+                if (category.equals("Hot") || category.equals("Loved")) {
+                    featuredProducts.add(product);
+                } else {
+                    popularProducts.add(product);
+                }
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+            Toast.makeText(this, "Error parsing JSON", Toast.LENGTH_SHORT).show();
+        }
+    }
+
 }

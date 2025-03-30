@@ -4,59 +4,68 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
-public class ProductAdapter extends BaseAdapter {
+public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHolder> {
     private Context context;
     private List<Product> productList;
+    private OnItemClickListener onItemClickListener;
 
-    public ProductAdapter(Context context, List<Product> productList) {
+    public ProductAdapter(Context context, List<Product> productList, OnItemClickListener listener) {
         this.context = context;
         this.productList = productList;
+        this.onItemClickListener = listener;
     }
 
-    @Override
-    public int getCount() {
-        return productList.size();
+    public interface OnItemClickListener {
+        void onItemClick(Product product);
     }
 
-    @Override
-    public Object getItem(int position) {
-        return productList.get(position);
-    }
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        ImageView productImage;
+        TextView productName, productPrice, productRating, productCategory, productSkinType;
 
-    @Override
-    public long getItemId(int position) {
-        return position;
-    }
-
-    @Override
-    public View getView(int position, View adapter, ViewGroup parent) {
-        if (adapter == null) {
-            adapter = LayoutInflater.from(context).inflate(R.layout.product_item, parent, false);
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+            productImage = itemView.findViewById(R.id.product_image);
+            productName = itemView.findViewById(R.id.product_name);
+            productPrice = itemView.findViewById(R.id.product_price);
+            productRating = itemView.findViewById(R.id.product_rating);
+            productCategory = itemView.findViewById(R.id.product_category);
+            productSkinType = itemView.findViewById(R.id.product_skin_type);
         }
 
-        Product product = productList.get(position);
+        public void bind(Product product, OnItemClickListener listener) {
+            productName.setText(product.getName());
+            productPrice.setText("P" + product.getPrice());
+            productRating.setText(String.valueOf(product.getRating()));
+            productImage.setImageResource(product.getImage());
+            productCategory.setText(product.getCategory());
+            productSkinType.setText(product.getSkinType());
 
-        ImageView productImage = adapter.findViewById(R.id.product_image);
-        TextView productName = adapter.findViewById(R.id.product_name);
-        TextView productPrice = adapter.findViewById(R.id.product_price);
-        TextView productRating = adapter.findViewById(R.id.product_rating);
-        TextView productCategory = adapter.findViewById(R.id.product_category);
-        TextView productSkinType = adapter.findViewById(R.id.product_skin_type);
+            itemView.setOnClickListener(v -> listener.onItemClick(product));
+        }
+    }
 
-        productName.setText(product.getName());
-        productPrice.setText("P" + product.getPrice());
-        productRating.setText(String.valueOf(product.getRating()));
-        productImage.setImageResource(product.getImage());
-        productCategory.setText(product.getCategory());
-        productSkinType.setText(product.getSkinType());
+    @NonNull
+    @Override
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(context).inflate(R.layout.product_item, parent, false);
+        return new ViewHolder(view);
+    }
 
-        return adapter;
+    @Override
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        holder.bind(productList.get(position), onItemClickListener);
+    }
+
+    @Override
+    public int getItemCount() {
+        return productList.size();
     }
 
     public void updateProductList(List<Product> newProductList) {

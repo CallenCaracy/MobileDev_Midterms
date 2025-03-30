@@ -77,6 +77,8 @@ public class Product implements Parcelable{
         return category;
     }
 
+
+
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(name);

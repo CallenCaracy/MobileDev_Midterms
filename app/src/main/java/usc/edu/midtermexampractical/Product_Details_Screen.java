@@ -58,7 +58,7 @@ public class Product_Details_Screen extends AppCompatActivity {
         if (selectedProduct != null) {
             prodName.setText("Product Name: " + selectedProduct.getName());
             prodDesc.setText("Product Description: " + selectedProduct.getDescription());
-            prodRating.setText("Product Rating: " + String.format("%.1f", selectedProduct.getRating()));
+            prodRating.setText("Rating: " + String.format("%.1f", selectedProduct.getRating()));
             prodPrice.setText("P " + selectedProduct.getPrice());
             img.setImageResource(selectedProduct.getImage());
         }

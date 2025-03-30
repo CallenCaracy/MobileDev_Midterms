@@ -1,0 +1,28 @@
+{
+  "users": [
+    {
+      "id": "12345",
+      "name": "Juan Dela Cruz",
+      "email": "delaCruz@gmail.com",
+      "gender": "Male"
+    },
+    {
+      "id": "12346",
+      "name": "Caracy",
+      "email": "caracy@gmail.com",
+      "gender": "Male"
+    },
+    {
+      "id": "12347",
+      "name": "Larcy",
+      "email": "Larz@gmail.com",
+      "gender": "Female"
+    },
+    {
+      "id": "12348",
+      "name": "Callen",
+      "email": "Callen@gmail.com",
+      "gender": "Male"
+    }
+  ],
+}

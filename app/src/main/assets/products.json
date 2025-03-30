@@ -1,0 +1,76 @@
+{
+  "Products": [
+    {
+      "name": "Moisturizer",
+      "price": 180,
+      "description": "This moisturizes your skin",
+      "rating": 4.5,
+      "image": "R.drawable.moisturizer",
+      "skinType": "Dry",
+      "category": "Hot"
+    },
+    {
+      "name": "Cleanser",
+      "price": 349,
+      "description": "Cleanses your delicate skin",
+      "rating": 4.2,
+      "image": "R.drawable.cleanser",
+      "skinType": "Oily",
+      "category": "Ranked"
+    },
+    {
+      "name": "Face Cream",
+      "price": 220,
+      "description": "Light cream for your skin",
+      "rating": 4.0,
+      "image": "R.drawable.face_cream",
+      "skinType": "Normal",
+      "category": "Loved"
+    },
+    {
+      "name": "Hydrating Gel",
+      "price": 280,
+      "description": "Hydrates and balances your skin",
+      "rating": 4.6,
+      "image": "R.drawable.hydrating_gel",
+      "skinType": "Combination",
+      "category": "Secret"
+    },
+    {
+      "name": "Foundation",
+      "price": 139,
+      "description": "This foundation is for you and your skin",
+      "rating": 4.8,
+      "image": "R.drawable.foundation",
+      "skinType": "Dry",
+      "category": "Ranked"
+    },
+    {
+      "name": "Lipstick",
+      "price": 200,
+      "description": "Your lips deserve more",
+      "rating": 4.6,
+      "image": "R.drawable.lipstick",
+      "skinType": "Normal",
+      "category": "Loved"
+    },
+    {
+      "name": "Toner",
+      "price": 350,
+      "description": "Gentle toner for soft skin",
+      "rating": 4.3,
+      "image": "R.drawable.toner",
+      "skinType": "Oily",
+      "category": "Hot"
+    },
+    {
+      "name": "Serum",
+      "price": 400,
+      "description": "Deep hydrating serum",
+      "rating": 4.7,
+      "image": "R.drawable.serum",
+      "skinType": "Combination",
+      "category": "Secret"
+    }
+  ]
+}
